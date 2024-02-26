@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:notable/view/screens/splash/splash_screen.dart';
-import 'package:notable/view_model/bloc/auth/auth_cubit.dart';
 import 'package:notable/view_model/bloc/shared_home/shared_home_cubit.dart';
 import 'package:notable/view_model/utils/themes/app_theme.dart';
+
+import 'view_model/bloc/auth/auth_cubit.dart';
 
 class NotableApp extends StatelessWidget {
   const NotableApp({super.key});

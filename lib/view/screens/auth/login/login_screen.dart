@@ -120,26 +120,32 @@ class LoginScreen extends StatelessWidget {
                     //
                     verticalSpacing(22),
                     //submitButton
-                    AppButton(
-                      onPressed: () async {
-                        //AuthCubit.get(context).login();
-                        if (AuthCubit.get(context)
-                            .formKey
-                            .currentState!
-                            .validate()) {
-                          AuthCubit.get(context).login().then((value) {
-                            Navigation.pushAndRemove(
-                              context,
-                              const SharedHome(),
-                            );
-                          });
+                    BlocConsumer<AuthCubit, AuthState>(
+                      listener: (context, state) {
+                        if (state is AuthSuccessState) {
+                          Navigation.pushAndRemove(
+                            context,
+                            const SharedHome(),
+                          );
                         }
                       },
-                      buttonText: "Log In",
-                      textStyle: TextStyles.font16Regular.copyWith(
-                        color: AppColors.lightPrimaryColor,
-                        fontWeight: FontWeightHelper.bold,
-                      ),
+                      builder: (context, state) {
+                        return AppButton(
+                          onPressed: () async {
+                            if (AuthCubit.get(context)
+                                .formKey
+                                .currentState!
+                                .validate()) {
+                              AuthCubit.get(context).login();
+                            }
+                          },
+                          buttonText: "Log In",
+                          textStyle: TextStyles.font16Regular.copyWith(
+                            color: AppColors.lightPrimaryColor,
+                            fontWeight: FontWeightHelper.bold,
+                          ),
+                        );
+                      },
                     ),
                     verticalSpacing(12),
                     //SocialLoginButtons

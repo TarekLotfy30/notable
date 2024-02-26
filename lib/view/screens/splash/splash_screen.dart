@@ -16,14 +16,19 @@ class SplashScreen extends StatelessWidget {
   void _navigateToNextScreen(BuildContext context) {
     final bool skipOnBoarding =
         LocalData.get(key: AppSharedKeys.skipOnBoarding) == true;
-    final Widget nextScreen = skipOnBoarding
-        ? LocalData.get(key: AppSharedKeys.token) != null
-            ? const SharedHome()
-            : const LoginScreen()
-        : BlocProvider(
-            create: (context) => OnboardingCubit(),
-            child: const OnBoardingScreen(),
-          );
+    final Widget nextScreen;
+    if (skipOnBoarding) {
+      if (LocalData.get(key: AppSharedKeys.token) == null) {
+        nextScreen = const LoginScreen();
+      } else {
+        nextScreen = const SharedHome();
+      }
+    } else {
+      nextScreen = BlocProvider(
+        create: (context) => OnboardingCubit(),
+        child: const OnBoardingScreen(),
+      );
+    }
 
     Navigation.pushAndRemove(context, nextScreen);
   }

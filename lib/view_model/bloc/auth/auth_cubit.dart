@@ -29,6 +29,8 @@ class AuthCubit extends Cubit<AuthState> {
     await DioHelper.postData(
       endPoint: EndPoints.login,
       body: {
+        //tareklotfi123@gmail.com
+        //pass12345
         'email': emailController!.text,
         'password': passwordController!.text
       },

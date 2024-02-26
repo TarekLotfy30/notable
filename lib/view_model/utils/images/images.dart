@@ -10,6 +10,7 @@ class AppImages {
   //-----------------------Bottom nav bar--------------------------------
   static String get home => "assets/svgs/bottom_nav_bar/home.svg";
   static String get finished => "assets/svgs/bottom_nav_bar/finished.svg";
+  static String get add => "assets/svgs/bottom_nav_bar/add.svg";
   static String get search => "assets/svgs/bottom_nav_bar/search.svg";
   static String get settings => "assets/svgs/bottom_nav_bar/setting.svg";
   static String get homeSolid => "assets/svgs/bottom_nav_bar/home_solid.svg";
