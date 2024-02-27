@@ -10,6 +10,6 @@ void main() async {
   Bloc.observer = MyBlocObserver();
   await LocalData.init();
   DioHelper.init();
-  //LocalData.clearAllData();
+  LocalData.clearAllData();
   runApp(const NotableApp());
 }

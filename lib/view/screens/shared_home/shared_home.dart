@@ -34,8 +34,7 @@ class SharedHome extends StatelessWidget {
           curve: Curves.fastEaseInToSlowEaseOut,
           duration: Duration(milliseconds: 200),
         ),
-        //TODO:STYLE 13
-        navBarStyle: NavBarStyle.style15,
+        navBarStyle: NavBarStyle.style13,
         backgroundColor: AppColors.whiteColor,
         hideNavigationBarWhenKeyboardShows: true,
       ),

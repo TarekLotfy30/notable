@@ -39,7 +39,8 @@ class BuildEmptyTasks extends StatelessWidget {
             right: 60,
           ),
           child: Text(
-            "Every big step start with small step. Notes your first idea and start your journey!",
+            "Every big step start with small step. Notes your first idea and "
+            "start your journey!",
             textAlign: TextAlign.center,
             style: TextStyles.font14Regular.copyWith(
               color: AppColors.darkGrayColor,

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:notable/view/components/home_screen/build_circular_indicator.dart';
 import 'package:notable/view/components/home_screen/build_empty_tasks.dart';
 import 'package:notable/view/components/home_screen/build_tasks_list.dart';
+import 'package:notable/view/components/widgets/build_circular_indicator.dart';
 import 'package:notable/view_model/bloc/task/tasks_cubit.dart';
 import 'package:notable/view_model/data/local/shared_keys.dart';
 import 'package:notable/view_model/data/local/shared_preferences.dart';
