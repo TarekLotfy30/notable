@@ -39,6 +39,7 @@ class AuthCubit extends Cubit<AuthState> {
       //(which usually means that the request was successful),
       if (value?.statusCode == 200 || value?.statusCode == 201) {
         saveData(value?.data);
+        print(value?.data["data"]["token"]);
         emit(AuthSuccessState());
       }
     }).catchError((onError) {

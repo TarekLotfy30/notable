@@ -40,14 +40,20 @@ class TextStyles {
     fontWeight: FontWeightHelper.regular,
   );
 
+  static TextStyle font12Regular = TextStyle(
+    fontSize: 12.sp,
+    color: AppColors.whiteColor,
+    fontWeight: FontWeightHelper.regular,
+  );
+
   static TextStyle font10Regular = TextStyle(
     fontSize: 10.sp,
     color: AppColors.whiteColor,
     fontWeight: FontWeightHelper.regular,
   );
 
-  static TextStyle font12Regular = TextStyle(
-    fontSize: 12.sp,
+  static TextStyle font8Regular = TextStyle(
+    fontSize: 8.sp,
     color: AppColors.whiteColor,
     fontWeight: FontWeightHelper.regular,
   );

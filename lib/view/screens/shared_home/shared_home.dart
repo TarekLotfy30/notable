@@ -22,6 +22,8 @@ class SharedHome extends StatelessWidget {
         popAllScreensOnTapOfSelectedTab: true,
         popActionScreens: PopActionScreensType.all,
         // Navigation Bar's items animation properties.
+        resizeToAvoidBottomInset: true,
+        margin: EdgeInsets.zero,
         itemAnimationProperties: const ItemAnimationProperties(
           duration: Duration(milliseconds: 200),
           curve: Curves.ease,
@@ -29,13 +31,13 @@ class SharedHome extends StatelessWidget {
         // Screen transition animation on change of selected tab.
         screenTransitionAnimation: const ScreenTransitionAnimation(
           animateTabTransition: true,
-          curve: Curves.ease,
+          curve: Curves.fastEaseInToSlowEaseOut,
           duration: Duration(milliseconds: 200),
         ),
+        //TODO:STYLE 13
         navBarStyle: NavBarStyle.style15,
         backgroundColor: AppColors.whiteColor,
         hideNavigationBarWhenKeyboardShows: true,
-        stateManagement: true,
       ),
     );
   }

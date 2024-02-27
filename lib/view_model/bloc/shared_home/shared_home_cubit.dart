@@ -23,52 +23,110 @@ class SharedHomeCubit extends Cubit<SharedHomeState> {
 
   List<Widget> buildScreens() {
     return [
-      HomeScreen(),
-      FinishedScreen(),
-      AddTask(),
-      SearchScreen(),
-      SettingsScreen(),
+      const HomeScreen(),
+      const FinishedScreen(),
+      const AddTask(),
+      const SearchScreen(),
+      const SettingsScreen(),
     ];
   }
 
-  PersistentBottomNavBarItem navBarItem({
-    required String title,
-    required String iconPath,
-    bool addButton = false,
-  }) {
-    return PersistentBottomNavBarItem(
-      icon: SvgPicture.asset(
-        iconPath,
-        width: addButton ? 30.h : 24.w,
-        height: addButton ? 30.h : 24.h,
-        colorFilter: ColorFilter.mode(
-          addButton ? AppColors.whiteColor : AppColors.primaryColor,
-          BlendMode.srcIn,
+  List<PersistentBottomNavBarItem> navBarsItems() => [
+        PersistentBottomNavBarItem(
+          icon: SvgPicture.asset(
+            AppImages.homeSolid,
+            width: 24.w,
+            height: 24.h,
+          ),
+          inactiveIcon: SvgPicture.asset(
+            AppImages.homeSolid,
+            colorFilter: ColorFilter.mode(
+              AppColors.darkGrayColor,
+              BlendMode.srcIn,
+            ),
+            width: 24.w,
+            height: 24.h,
+          ),
+          activeColorPrimary: AppColors.primaryColor,
+          inactiveColorPrimary: AppColors.darkGrayColor,
+          title: 'Home',
+          textStyle: TextStyles.font10Regular,
         ),
-      ),
-      inactiveIcon: SvgPicture.asset(
-        iconPath,
-        colorFilter: ColorFilter.mode(
-          addButton ? AppColors.whiteColor : AppColors.darkGrayColor,
-          BlendMode.srcIn,
+        PersistentBottomNavBarItem(
+          icon: SvgPicture.asset(
+            AppImages.finishedSolid,
+            width: 24.w,
+            height: 24.h,
+          ),
+          inactiveIcon: SvgPicture.asset(
+            AppImages.finishedSolid,
+            colorFilter: ColorFilter.mode(
+              AppColors.darkGrayColor,
+              BlendMode.srcIn,
+            ),
+            width: 24.w,
+            height: 24.h,
+          ),
+          activeColorPrimary: AppColors.primaryColor,
+          inactiveColorPrimary: AppColors.darkGrayColor,
+          title: 'Finished',
+          textStyle: TextStyles.font10Regular,
         ),
-        width: addButton ? 30.w : 24.w,
-        height: addButton ? 30.h : 24.h,
-      ),
-      activeColorPrimary: AppColors.primaryColor,
-      inactiveColorPrimary: AppColors.darkGrayColor,
-      title: addButton ? "" : title,
-      textStyle: TextStyles.font10Regular,
-    );
-  }
-
-  List<PersistentBottomNavBarItem> navBarsItems() {
-    return [
-      navBarItem(title: 'Home', iconPath: AppImages.homeSolid),
-      navBarItem(title: 'Finished', iconPath: AppImages.finishedSolid),
-      navBarItem(title: 'Add', iconPath: AppImages.add, addButton: true),
-      navBarItem(title: 'Search', iconPath: AppImages.search),
-      navBarItem(title: 'Settings', iconPath: AppImages.settingsSolid),
-    ];
-  }
+        PersistentBottomNavBarItem(
+          icon: SvgPicture.asset(
+            AppImages.add,
+            width: 24.w,
+            height: 24.h,
+          ),
+          activeColorPrimary: AppColors.primaryColor,
+        ),
+        PersistentBottomNavBarItem(
+          icon: SvgPicture.asset(
+            AppImages.search,
+            width: 24.w,
+            height: 24.h,
+            colorFilter: ColorFilter.mode(
+              AppColors.primaryColor,
+              BlendMode.srcIn,
+            ),
+          ),
+          inactiveIcon: SvgPicture.asset(
+            AppImages.search,
+            colorFilter: ColorFilter.mode(
+              AppColors.darkGrayColor,
+              BlendMode.srcIn,
+            ),
+            width: 24.w,
+            height: 24.h,
+          ),
+          activeColorPrimary: AppColors.primaryColor,
+          inactiveColorPrimary: AppColors.darkGrayColor,
+          title: 'Search',
+          textStyle: TextStyles.font10Regular,
+        ),
+        PersistentBottomNavBarItem(
+          icon: SvgPicture.asset(
+            AppImages.settingsSolid,
+            width: 24.w,
+            height: 24.h,
+            colorFilter: ColorFilter.mode(
+              AppColors.primaryColor,
+              BlendMode.srcIn,
+            ),
+          ),
+          inactiveIcon: SvgPicture.asset(
+            AppImages.settingsSolid,
+            colorFilter: ColorFilter.mode(
+              AppColors.darkGrayColor,
+              BlendMode.srcIn,
+            ),
+            width: 24.w,
+            height: 24.h,
+          ),
+          activeColorPrimary: AppColors.primaryColor,
+          inactiveColorPrimary: AppColors.darkGrayColor,
+          title: 'Home',
+          textStyle: TextStyles.font10Regular,
+        ),
+      ];
 }

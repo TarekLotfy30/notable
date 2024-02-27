@@ -48,6 +48,7 @@ flutter:
     - assets/images/splash/
     - assets/images/onboarding/
     - assets/images/auth/
+    - assets/images/illustration/
     - assets/icons/
     - assets/svgs/
     - assets/svgs/bottom_nav_bar/
