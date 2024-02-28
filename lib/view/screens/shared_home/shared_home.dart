@@ -11,7 +11,6 @@ class SharedHome extends StatelessWidget {
   Widget build(BuildContext context) {
     final SharedHomeCubit cubit = SharedHomeCubit.get(context);
     return Scaffold(
-      //appBar: const CustomAppBar(),
       body: PersistentTabView(
         context,
         navBarHeight: 84.h,
@@ -34,7 +33,7 @@ class SharedHome extends StatelessWidget {
           curve: Curves.fastEaseInToSlowEaseOut,
           duration: Duration(milliseconds: 200),
         ),
-        navBarStyle: NavBarStyle.style13,
+        navBarStyle: NavBarStyle.style15,
         backgroundColor: AppColors.whiteColor,
         hideNavigationBarWhenKeyboardShows: true,
       ),

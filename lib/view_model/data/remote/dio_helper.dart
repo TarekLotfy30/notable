@@ -44,7 +44,6 @@ class DioHelper {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
     };
-
     return await dio?.post(
       endPoint,
       queryParameters: params,

@@ -1,9 +1,7 @@
 part of "../../screens/auth/login/login_screen.dart";
 
 class _SocialLoginButtons extends StatelessWidget {
-  const _SocialLoginButtons({
-    super.key,
-  });
+  const _SocialLoginButtons();
 
   @override
   Widget build(BuildContext context) {

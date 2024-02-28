@@ -6,7 +6,3 @@ class EndPoints {
   static String get login => "login";
   static String get tasks => "tasks";
 }
-
-//https://newsapi.org/
-// v2/top-headlines?              EL PATH HAYB2A MN GHER "?"
-// country=us&category=business&apiKey=6daca0ce077440d7b4ffdfda4742e424

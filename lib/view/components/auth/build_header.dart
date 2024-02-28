@@ -1,9 +1,7 @@
 part of "../../screens/auth/login/login_screen.dart";
 
 class _BuildHeader extends StatelessWidget {
-  const _BuildHeader({
-    super.key,
-  });
+  const _BuildHeader();
 
   @override
   Widget build(BuildContext context) {

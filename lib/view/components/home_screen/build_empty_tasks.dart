@@ -1,61 +1,57 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:notable/view_model/utils/colors/app_colors.dart';
-import 'package:notable/view_model/utils/functions/functions.dart';
-import 'package:notable/view_model/utils/styles/font_weight_helper.dart';
-import 'package:notable/view_model/utils/styles/text_style.dart';
+part of "../../screens/home/home_screen.dart";
 
-class BuildEmptyTasks extends StatelessWidget {
-  const BuildEmptyTasks({
-    super.key,
-  });
+class _BuildEmptyTasks extends StatelessWidget {
+  const _BuildEmptyTasks();
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Image.asset(
-          "assets/images/illustration/Illustration.png",
-          height: 240.h,
-          width: 240.w,
-          fit: BoxFit.cover,
-          alignment: Alignment.center,
-        ),
-        verticalSpacing(20),
-        Text(
-          "Start Your Journey",
-          textAlign: TextAlign.center,
-          style: TextStyles.font24Regular.copyWith(
-            fontWeight: FontWeightHelper.bold,
-            color: AppColors.black,
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          // Display placeholder image for empty tasks
+          Image.asset(
+            AppImages.homePlaceholder,
+            height: 240.h,
+            width: 240.w,
+            fit: BoxFit.cover,
+            alignment: Alignment.center,
           ),
-        ),
-        verticalSpacing(20),
-        Padding(
-          padding: const EdgeInsets.only(
-            left: 60,
-            right: 60,
-          ),
-          child: Text(
-            "Every big step start with small step. Notes your first idea and "
-            "start your journey!",
+          verticalSpacing(20),
+          // Display motivational text
+          Text(
+            "Start Your Journey",
             textAlign: TextAlign.center,
-            style: TextStyles.font14Regular.copyWith(
-              color: AppColors.darkGrayColor,
+            style: TextStyles.font24Regular.copyWith(
+              fontWeight: FontWeightHelper.bold,
+              color: AppColors.black,
             ),
           ),
-        ),
-        verticalSpacing(30),
-        Image.asset(
-          "assets/images/illustration/Arrow.png",
-          height: 100.h,
-          width: 150.w,
-          fit: BoxFit.cover,
-          alignment: Alignment.center,
-        )
-      ],
+          verticalSpacing(20),
+          // Display informational text with padding
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 60),
+            child: Text(
+              "Every big step start with small step. Notes your first idea and "
+              "start your journey!",
+              textAlign: TextAlign.center,
+              style: TextStyles.font14Regular.copyWith(
+                color: AppColors.darkGrayColor,
+              ),
+            ),
+          ),
+          verticalSpacing(30),
+          // Display arrow image
+          Image.asset(
+            AppImages.arrow,
+            height: 100.h,
+            width: 150.w,
+            fit: BoxFit.cover,
+            alignment: Alignment.center,
+          )
+        ],
+      ),
     );
   }
 }

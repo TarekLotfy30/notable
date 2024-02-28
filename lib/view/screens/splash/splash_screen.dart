@@ -29,7 +29,6 @@ class SplashScreen extends StatelessWidget {
         child: const OnBoardingScreen(),
       );
     }
-
     Navigation.pushAndRemove(context, nextScreen);
   }
 

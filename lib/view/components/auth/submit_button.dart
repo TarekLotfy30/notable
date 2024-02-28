@@ -1,9 +1,7 @@
 part of "../../screens/auth/login/login_screen.dart";
 
 class _SubmitButton extends StatelessWidget {
-  const _SubmitButton({
-    super.key,
-  });
+  const _SubmitButton();
 
   @override
   Widget build(BuildContext context) {

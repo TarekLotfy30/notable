@@ -18,4 +18,8 @@ class AppImages {
       "assets/svgs/bottom_nav_bar/finished_solid.svg";
   static String get settingsSolid =>
       "assets/svgs/bottom_nav_bar/settings_solid.svg";
+  //------------------------------home---------------------------------------
+  static String get homePlaceholder =>
+      "assets/images/illustration/home_placeholder.png";
+  static String get arrow => "assets/images/illustration/Arrow.png";
 }

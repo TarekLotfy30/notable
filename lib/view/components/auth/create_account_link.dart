@@ -1,9 +1,7 @@
 part of "../../screens/auth/login/login_screen.dart";
 
 class _CreateAccountLink extends StatelessWidget {
-  const _CreateAccountLink({
-    super.key,
-  });
+  const _CreateAccountLink();
 
   @override
   Widget build(BuildContext context) {

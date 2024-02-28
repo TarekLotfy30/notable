@@ -1,12 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:notable/model/task/task.dart';
-import 'package:notable/view/components/widgets/task_card.dart';
-import 'package:notable/view_model/bloc/task/tasks_cubit.dart';
-import 'package:notable/view_model/utils/functions/functions.dart';
+part of "../../screens/home/home_screen.dart";
 
-class BuildTasksList extends StatelessWidget {
-  const BuildTasksList({
-    super.key,
+class _BuildTasksList extends StatelessWidget {
+  const _BuildTasksList({
     required this.taskCubit,
   });
 

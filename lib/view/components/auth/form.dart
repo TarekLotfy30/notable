@@ -1,7 +1,7 @@
 part of "../../screens/auth/login/login_screen.dart";
 
 class _BuildForm extends StatelessWidget {
-  const _BuildForm({super.key});
+  const _BuildForm();
 
   @override
   Widget build(BuildContext context) {

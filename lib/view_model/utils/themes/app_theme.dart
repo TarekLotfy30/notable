@@ -40,9 +40,11 @@ class AppTheme {
           outline: Colors.black,
           // A variant of the outline color.
           outlineVariant: Colors.black,
-          // The color to use for text and icons on top of the surface variant color
+          // The color to use for text and icons on top of the surface
+          // variant color
           onSurfaceVariant: Colors.black,
-          // The color to use for text and icons on top of the inverse surface color
+          // The color to use for text and icons on top of the inverse
+          // surface color
           onInverseSurface: Colors.black,
           // The color to use for shadows in the application.
           shadow: Colors.black,
