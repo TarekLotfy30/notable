@@ -10,33 +10,31 @@ class SharedHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final SharedHomeCubit cubit = SharedHomeCubit.get(context);
-    return Scaffold(
-      body: PersistentTabView(
-        context,
-        navBarHeight: 84.h,
-        controller: cubit.controller,
-        screens: cubit.buildScreens(),
-        items: cubit.navBarsItems(),
-        confineInSafeArea: true,
-        popAllScreensOnTapOfSelectedTab: true,
-        popActionScreens: PopActionScreensType.all,
-        // Navigation Bar's items animation properties.
-        resizeToAvoidBottomInset: true,
-        margin: EdgeInsets.zero,
-        itemAnimationProperties: const ItemAnimationProperties(
-          duration: Duration(milliseconds: 200),
-          curve: Curves.ease,
-        ),
-        // Screen transition animation on change of selected tab.
-        screenTransitionAnimation: const ScreenTransitionAnimation(
-          animateTabTransition: true,
-          curve: Curves.fastEaseInToSlowEaseOut,
-          duration: Duration(milliseconds: 200),
-        ),
-        navBarStyle: NavBarStyle.style15,
-        backgroundColor: AppColors.whiteColor,
-        hideNavigationBarWhenKeyboardShows: true,
+    return PersistentTabView(
+      controller: cubit.controller,
+      context,
+      navBarHeight: 84.h,
+      screens: cubit.buildScreens(),
+      items: cubit.navBarsItems(),
+      confineInSafeArea: true,
+      popAllScreensOnTapOfSelectedTab: true,
+      popActionScreens: PopActionScreensType.all,
+      // Navigation Bar's items animation properties.
+      resizeToAvoidBottomInset: true,
+      margin: EdgeInsets.zero,
+      itemAnimationProperties: const ItemAnimationProperties(
+        duration: Duration(milliseconds: 200),
+        curve: Curves.ease,
       ),
+      // Screen transition animation on change of selected tab.
+      screenTransitionAnimation: const ScreenTransitionAnimation(
+        animateTabTransition: true,
+        curve: Curves.fastEaseInToSlowEaseOut,
+        duration: Duration(milliseconds: 200),
+      ),
+      navBarStyle: NavBarStyle.style15,
+      backgroundColor: AppColors.whiteColor,
+      hideNavigationBarWhenKeyboardShows: true,
     );
   }
 }

@@ -12,3 +12,5 @@ class TasksError extends TasksState {
   final String error;
   TasksError(this.error);
 }
+
+class SelectTheCategoryState extends TasksState {}

@@ -10,6 +10,8 @@ class AppTextFormField extends StatelessWidget {
   final FormFieldValidator? validate;
   final AutovalidateMode? autoValidateMode;
   final void Function(String)? onChanged;
+  final TextCapitalization? textCapitalization;
+  final bool? autofocus;
   final EdgeInsetsGeometry? contentPadding;
   final InputBorder? enabledBorder;
   final InputBorder? focusedBorder;
@@ -18,7 +20,9 @@ class AppTextFormField extends StatelessWidget {
   final TextStyle? hintStyle;
   final String hintText;
   final Widget? suffixIcon;
+  final TextStyle? style;
   final bool? isObscureText;
+  final int? maxLines;
 
   const AppTextFormField({
     super.key,
@@ -37,6 +41,10 @@ class AppTextFormField extends StatelessWidget {
     required this.hintText,
     this.suffixIcon,
     this.isObscureText,
+    this.style,
+    this.textCapitalization,
+    this.autofocus,
+    this.maxLines,
   });
 
   @override
@@ -49,6 +57,8 @@ class AppTextFormField extends StatelessWidget {
       validator: validate,
       autovalidateMode: autoValidateMode,
       onChanged: onChanged,
+      textCapitalization: textCapitalization ?? TextCapitalization.none,
+      maxLines: maxLines,
       decoration: InputDecoration(
         isDense: true,
         contentPadding: contentPadding ??
@@ -95,11 +105,11 @@ class AppTextFormField extends StatelessWidget {
         filled: true,
         fillColor: AppColors.whiteColor,
       ),
-      style: TextStyles.font16Regular.copyWith(color: AppColors.black),
+      autofocus: autofocus ?? false,
+      style: style ?? TextStyles.font16Regular.copyWith(color: AppColors.black),
       obscureText: isObscureText ?? false,
       obscuringCharacter: '*',
       cursorColor: AppColors.primaryColor,
-      cursorHeight: 27,
     );
   }
 }

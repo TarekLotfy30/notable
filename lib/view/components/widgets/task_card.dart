@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:notable/model/task/task.dart';
@@ -46,6 +47,17 @@ class TaskCard extends StatelessWidget {
                 ),
               ),
             ],
+          ),
+          verticalSpacing(10),
+          Visibility(
+            visible: task.image != null,
+            replacement: const SizedBox.shrink(),
+            child: Image.network(
+              "${task.image}",
+              height: 80.h,
+              width: double.infinity,
+              fit: BoxFit.contain,
+            ),
           ),
           verticalSpacing(4),
           Text(

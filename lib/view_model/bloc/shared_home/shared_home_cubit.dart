@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:notable/view/screens/add_task/add_task.dart';
+import 'package:notable/view/screens/create_new_task/select_note_type_screen.dart';
 import 'package:notable/view/screens/finished/finished_screen.dart';
 import 'package:notable/view/screens/home/home_screen.dart';
 import 'package:notable/view/screens/search/search_screen.dart';
@@ -25,7 +25,7 @@ class SharedHomeCubit extends Cubit<SharedHomeState> {
     return [
       const HomeScreen(),
       const FinishedScreen(),
-      const AddTask(),
+      const SelectNoteType(),
       const SearchScreen(),
       const SettingsScreen(),
     ];
@@ -73,12 +73,16 @@ class SharedHomeCubit extends Cubit<SharedHomeState> {
           textStyle: TextStyles.font10Regular,
         ),
         PersistentBottomNavBarItem(
-          icon: SvgPicture.asset(
-            AppImages.add,
-            width: 24.w,
-            height: 24.h,
+          icon: CircleAvatar(
+            backgroundColor: AppColors.primaryColor,
+            maxRadius: 35.r,
+            child: SvgPicture.asset(
+              AppImages.add,
+              width: 30.w,
+              height: 30.h,
+            ),
           ),
-          activeColorPrimary: AppColors.primaryColor,
+          activeColorPrimary: AppColors.whiteColor,
         ),
         PersistentBottomNavBarItem(
           icon: SvgPicture.asset(

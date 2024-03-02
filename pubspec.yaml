@@ -50,6 +50,7 @@ flutter:
     - assets/images/auth/
     - assets/images/illustration/
     - assets/icons/
+    - assets/icons/add_task_icons/
     - assets/svgs/
     - assets/svgs/bottom_nav_bar/
 

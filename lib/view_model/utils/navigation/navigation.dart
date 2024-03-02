@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 
 /// `Navigation` is a utility class that provides static methods to handle
 /// navigation tasks such as pushing a new screen onto the stack, replacing
@@ -16,11 +17,19 @@ class Navigation {
     );
   }
 
-  /// Replaces the current screen with [screen].
+  /// Navigates to the specified [screen] and removes all previous screens
+  /// from the history.
   ///
-  /// The [pushAndRemove] method adds [screen] to the stack and then removes
-  /// all the previous screens from the stack. This is useful when you want
-  /// to start a new flow and remove all the previous screens.
+  /// This method is ideal for starting a completely new flow within the app,
+  /// preventing users from navigating back to previous screens.
+  /// It's commonly used for login flows, onboarding processes, or isolated
+  /// tasks that shouldn't
+  /// be intermixed with the main navigation stack.
+  ///
+  /// **Example:**
+  /// ```dart
+  /// NavigationUtils.pushAndRemove(context, LoginScreen());
+  /// ```
   static void pushAndRemove(BuildContext context, Widget screen) {
     Navigator.pushAndRemoveUntil(
       context,
@@ -29,11 +38,18 @@ class Navigation {
     );
   }
 
-  /// Replaces the current screen with [screen].
+  /// Navigates to the specified [screen], replacing the current screen in the history.
   ///
-  /// The [pushAndRemove] method adds [screen] to the stack and then removes
-  /// all the previous screens from the stack. This is useful when you want
-  /// to start a new flow and remove all the previous screens.
+  /// This method maintains a backward navigation path while ensuring that
+  /// returning to the previous screen won't lead back to the screen that was
+  /// replaced. It's suitable for scenarios where you want to maintain a linear
+  /// flow with the ability to go back one step but prevent returning to specific
+  /// screens within the flow.
+  ///
+  /// **Example:**
+  /// ```dart
+  /// Navigation.pushReplacement(context, SettingsScreen());
+  /// ```
   static void pushReplacement(BuildContext context, Widget screen) {
     Navigator.pushReplacement(
       context,
@@ -49,4 +65,21 @@ class Navigation {
   static void pop(BuildContext context) {
     Navigator.pop(context);
   }
+
+  static void navigateToWithoutNavBar(BuildContext context, Widget screen) {
+    pushNewScreen(
+      context,
+      screen: screen,
+      // replace this with the screen you want to navigate to
+      withNavBar: false,
+      // OPTIONAL VALUE. True by default.
+      pageTransitionAnimation: PageTransitionAnimation.cupertino,
+    );
+  }
+/*
+ElevatedButton(
+  onPressed: () => navigateToMainScreen(context),
+  child: Text('Go to Main Screen'),
+)
+*/
 }

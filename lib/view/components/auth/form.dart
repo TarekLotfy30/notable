@@ -35,6 +35,7 @@ class _BuildForm extends StatelessWidget {
             },
             autoValidateMode: AutovalidateMode.onUserInteraction,
             hintText: 'Example: johndoe@gmail.com',
+            maxLines: 1,
           ),
           // Vertical spacing
           verticalSpacing(20),
@@ -83,6 +84,7 @@ class _BuildForm extends StatelessWidget {
                     ),
                   ),
                 ),
+                maxLines: 1,
               );
             },
           ),
