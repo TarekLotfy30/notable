@@ -12,7 +12,6 @@ include: package:flutter_lints/flutter.yaml
 linter:
   rules:
     - always_declare_return_types
-    - lines_longer_than_80_chars
     - unnecessary_getters_setters
     - unnecessary_new
     - avoid_print

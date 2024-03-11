@@ -1,4 +1,4 @@
-part of "../../screens/auth/login/login_screen.dart";
+part of "../../../screens/auth/login/login_screen.dart";
 
 class _SubmitButton extends StatelessWidget {
   const _SubmitButton();
@@ -27,9 +27,11 @@ class _SubmitButton extends StatelessWidget {
             ),
           );
         } else if (state is AuthErrorState) {
-          // Handle login error
-          showSnackBar(context, "the email or password is not correct",
-              AppColors.errorColor);
+          showSnackBar(
+            context,
+            state.error,
+            AppColors.errorColor,
+          );
         }
       },
       builder: (context, state) {
@@ -38,7 +40,13 @@ class _SubmitButton extends StatelessWidget {
           replacement: const BuildCircularIndicator(),
           child: AppButton(
             onPressed: () async {
-              if (AuthCubit.get(context).formKey.currentState!.validate()) {
+              // Validate and submit login form
+              // if validation passes
+              // then call login()
+              if (AuthCubit.get(context)
+                  .loginFormKey
+                  .currentState!
+                  .validate()) {
                 AuthCubit.get(context).login();
               }
             },

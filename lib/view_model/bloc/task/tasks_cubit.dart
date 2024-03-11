@@ -17,6 +17,7 @@ class TasksCubit extends Cubit<TasksState> {
   static TasksCubit get(context) => BlocProvider.of(context);
 
   TaskModel taskModel = TaskModel();
+
   Future<void> getAllTasks() async {
     emit(TasksLoading());
     DioHelper.getData(
@@ -24,7 +25,6 @@ class TasksCubit extends Cubit<TasksState> {
       token: LocalData.get(key: AppSharedKeys.token),
     ).then((value) {
       taskModel = TaskModel.fromJson(value?.data);
-      print(value?.data);
       emit(TasksLoaded());
     }).catchError((onError) {
       print(onError.toString());
@@ -72,6 +72,7 @@ class TasksCubit extends Cubit<TasksState> {
 
   int categoryIndex = 0;
   Color sendTheColor = AppColors.primaryColor;
+
   void selectedCategoryIndex(int index) {
     categoryIndex = index;
     selectColor();
@@ -103,8 +104,96 @@ class TasksCubit extends Cubit<TasksState> {
     }
   }
 
-  GlobalKey formKey = GlobalKey<FormState>();
+  final formKey = GlobalKey<FormState>();
 
   TextEditingController? titleController = TextEditingController();
   TextEditingController? descriptionController = TextEditingController();
+  TextEditingController? firstDateController = TextEditingController();
+  TextEditingController? lastDateController = TextEditingController();
+
+  Future<void> sendTask() async {
+    emit(SendTaskLoading());
+    DioHelper.postData(
+      endPoint: EndPoints.tasks,
+      token: LocalData.get(key: AppSharedKeys.token),
+      body: {
+        "title": titleController?.text,
+        "description": descriptionController?.text,
+        "start_date": firstDateController?.text,
+        "end_date": lastDateController?.text,
+        "status": "new",
+      },
+    ).then((value) {
+      taskModel.data?.tasks?.add(Tasks.fromJson(value?.data["data"]));
+      emit(SendTaskLoaded());
+    }).catchError((onError) {
+      print(onError.toString());
+      emit(SendTaskError(onError.toString()));
+    });
+  }
+
+  void reset() {
+    titleController?.clear();
+    descriptionController?.clear();
+    firstDateController?.clear();
+    lastDateController?.clear();
+  }
+
+  Future<void> showSingleTask(int index) async {
+    emit(ShowSingleTaskLoading());
+    DioHelper.getData(
+      endPoint: "${EndPoints.tasks}/${taskModel.data?.tasks?[index].id}",
+      token: LocalData.get(key: AppSharedKeys.token),
+    ).then((value) {
+      print(value?.data);
+      titleController?.text = taskModel.data?.tasks?[index].title ?? "";
+      descriptionController?.text =
+          taskModel.data?.tasks?[index].description ?? "";
+      firstDateController?.text = taskModel.data?.tasks?[index].startDate ?? "";
+      lastDateController?.text = taskModel.data?.tasks?[index].endDate ?? "";
+      emit(ShowSingleTaskLoaded());
+    }).catchError((onError) {
+      print(onError.toString());
+      emit(ShowSingleTaskError(onError.toString()));
+    });
+  }
+
+  Future<void> deleteTask(int index) async {
+    emit(DeleteTaskLoading());
+    DioHelper.deleteData(
+      endPoint: "${EndPoints.tasks}/${taskModel.data?.tasks?[index].id}",
+      token: LocalData.get(key: AppSharedKeys.token),
+    ).then((value) {
+      taskModel.data?.tasks?.remove(taskModel.data?.tasks?[index]);
+      emit(DeleteTaskLoaded());
+    }).catchError((onError) {
+      print(onError.toString());
+      emit(DeleteTaskError(onError.toString()));
+    });
+  }
+
+  Future<void> updateTask(int index) async {
+    emit(UpdateTaskLoading());
+    DioHelper.postData(
+      endPoint: "${EndPoints.tasks}/${taskModel.data?.tasks?[index].id}",
+      token: LocalData.get(key: AppSharedKeys.token),
+      body: {
+        "_method": "PUT",
+        "title": titleController?.text,
+        "description": descriptionController?.text,
+        "start_date": firstDateController?.text,
+        "end_date": lastDateController?.text,
+        "status": "new",
+      },
+    ).then((value) {
+      taskModel.data?.tasks?[index].title = titleController?.text;
+      taskModel.data?.tasks?[index].description = descriptionController?.text;
+      taskModel.data?.tasks?[index].startDate = firstDateController?.text;
+      taskModel.data?.tasks?[index].endDate = lastDateController?.text;
+      emit(UpdateTaskLoaded());
+    }).catchError((onError) {
+      print(onError.toString());
+      emit(UpdateTaskError(onError.toString()));
+    });
+  }
 }

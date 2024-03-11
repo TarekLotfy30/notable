@@ -39,12 +39,52 @@ class DioHelper {
     required Map<String, dynamic>? body,
     Map<String, dynamic>? params,
     Map<String, dynamic>? headers,
+    String? token,
   }) async {
     dio?.options.headers = {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token',
     };
     return await dio?.post(
+      endPoint,
+      queryParameters: params,
+      data: body,
+    );
+  }
+
+  static Future<Response?> putData({
+    required String endPoint,
+    required Map<String, dynamic>? body,
+    Map<String, dynamic>? params,
+    Map<String, dynamic>? headers,
+    String? token,
+  }) async {
+    dio?.options.headers = {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token',
+    };
+    return await dio?.put(
+      endPoint,
+      queryParameters: params,
+      data: body,
+    );
+  }
+
+  static Future<Response?> deleteData({
+    required String endPoint,
+    Map<String, dynamic>? body,
+    Map<String, dynamic>? params,
+    Map<String, dynamic>? headers,
+    String? token,
+  }) async {
+    dio?.options.headers = {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token',
+    };
+    return await dio?.delete(
       endPoint,
       queryParameters: params,
       data: body,

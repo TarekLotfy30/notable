@@ -4,7 +4,9 @@ import 'package:notable/view_model/utils/colors/app_colors.dart';
 import 'package:notable/view_model/utils/styles/text_style.dart';
 
 class AppTextFormField extends StatelessWidget {
+  final bool? readOnly;
   final TextEditingController? controller;
+  final void Function()? onTap;
   final TextInputType? keyboardType;
   final TextInputAction? textInputAction;
   final FormFieldValidator? validate;
@@ -45,12 +47,16 @@ class AppTextFormField extends StatelessWidget {
     this.textCapitalization,
     this.autofocus,
     this.maxLines,
+    this.readOnly,
+    this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      readOnly: readOnly ?? false,
       onTapOutside: (event) => FocusScope.of(context).unfocus(),
+      onTap: onTap,
       controller: controller,
       keyboardType: keyboardType,
       textInputAction: textInputAction,

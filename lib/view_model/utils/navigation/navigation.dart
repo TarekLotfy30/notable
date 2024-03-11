@@ -66,12 +66,13 @@ class Navigation {
     Navigator.pop(context);
   }
 
-  static void navigateToWithoutNavBar(BuildContext context, Widget screen) {
+  static void navigateToWithoutNavBar(BuildContext context, Widget screen,
+      {bool? withNavBar = false}) {
     pushNewScreen(
       context,
       screen: screen,
       // replace this with the screen you want to navigate to
-      withNavBar: false,
+      withNavBar: withNavBar,
       // OPTIONAL VALUE. True by default.
       pageTransitionAnimation: PageTransitionAnimation.cupertino,
     );

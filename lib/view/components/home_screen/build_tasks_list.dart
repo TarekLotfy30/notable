@@ -13,6 +13,14 @@ class _BuildTasksList extends StatelessWidget {
       child: ListView.separated(
         itemBuilder: (BuildContext context, int index) => TaskCard(
           task: taskCubit.taskModel.data?.tasks?[index] ?? Tasks(),
+          onTap: () {
+            taskCubit.showSingleTask(index).then((_) {
+              Navigation.navigateToWithoutNavBar(
+                context,
+                EditAndDeleteTaskScreen(index: index),
+              );
+            });
+          },
         ),
         separatorBuilder: (BuildContext context, int index) =>
             verticalSpacing(10),

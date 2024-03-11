@@ -1,7 +1,6 @@
 class AppRegex {
   static bool isEmailValid(String email) {
-    return RegExp(r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$')
-        .hasMatch(email);
+    return RegExp(r'^.+@[a-zA-Z]+\.[a-zA-Z]+(\.?[a-zA-Z]+)$').hasMatch(email);
   }
 
   static bool isPasswordValid(String password) {
@@ -28,5 +27,9 @@ class AppRegex {
 
   static bool hasMinLength(String password) {
     return RegExp(r'^(?=.{8,})').hasMatch(password);
+  }
+
+  static bool hasMaxLength(String password) {
+    return RegExp(r'^(?=.{0,20}$)').hasMatch(password);
   }
 }

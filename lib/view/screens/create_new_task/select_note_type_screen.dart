@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:notable/view/components/widgets/build_category_card.dart';
-import 'package:notable/view/screens/create_new_task/task_details_screen.dart';
+import 'package:notable/view/screens/create_new_task/add_task_details_screen.dart';
 import 'package:notable/view_model/bloc/task/tasks_cubit.dart';
 import 'package:notable/view_model/utils/colors/app_colors.dart';
 import 'package:notable/view_model/utils/functions/functions.dart';

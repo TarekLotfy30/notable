@@ -1,4 +1,4 @@
-part of "../../screens/auth/login/login_screen.dart";
+part of "../../../screens/auth/login/login_screen.dart";
 
 class _BuildForm extends StatelessWidget {
   const _BuildForm();
@@ -6,7 +6,7 @@ class _BuildForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: AuthCubit.get(context).formKey,
+      key: AuthCubit.get(context).loginFormKey,
       child: Column(
         children: [
           // Align with "Email" text label
@@ -27,13 +27,15 @@ class _BuildForm extends StatelessWidget {
             controller: AuthCubit.get(context).emailController,
             keyboardType: TextInputType.emailAddress,
             textInputAction: TextInputAction.next,
+            autoValidateMode: AutovalidateMode.onUserInteraction,
             validate: (value) {
-              if (value!.isEmpty) {
-                return "Please enter email";
+              if (value.isEmpty || value == null) {
+                return "The email field is required.";
+              } else if (!AppRegex.isEmailValid(value)) {
+                return "The email is not valid.";
               }
               return null;
             },
-            autoValidateMode: AutovalidateMode.onUserInteraction,
             hintText: 'Example: johndoe@gmail.com',
             maxLines: 1,
           ),
@@ -60,14 +62,16 @@ class _BuildForm extends StatelessWidget {
                 keyboardType: TextInputType.visiblePassword,
                 textInputAction: TextInputAction.done,
                 validate: (value) {
-                  if (value!.isEmpty) {
-                    return "Please enter password";
+                  if (value!.isEmpty || value == null) {
+                    return "The password field is required.";
+                  } else if (!AppRegex.isPasswordValid(value)) {
+                    return "The password is not valid.";
                   }
                   return null;
                 },
-                autoValidateMode: AutovalidateMode.onUserInteraction,
                 hintText: '********',
                 isObscureText: AuthCubit.get(context).isObscure,
+                autoValidateMode: AutovalidateMode.onUserInteraction,
                 suffixIcon: IconButton(
                   onPressed: () {
                     AuthCubit.get(context).changeIsObscure();

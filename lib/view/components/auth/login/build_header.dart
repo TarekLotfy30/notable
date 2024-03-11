@@ -1,4 +1,4 @@
-part of "../../screens/auth/login/login_screen.dart";
+part of "../../../screens/auth/login/login_screen.dart";
 
 class _BuildHeader extends StatelessWidget {
   const _BuildHeader();

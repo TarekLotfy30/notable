@@ -10,22 +10,24 @@ import 'package:notable/view/screens/shared_home/shared_home.dart';
 import 'package:notable/view_model/bloc/auth/auth_cubit.dart';
 import 'package:notable/view_model/utils/colors/app_colors.dart';
 import 'package:notable/view_model/utils/functions/functions.dart';
+import 'package:notable/view_model/utils/helpers/app_regex.dart';
 import 'package:notable/view_model/utils/images/images.dart';
 import 'package:notable/view_model/utils/navigation/navigation.dart';
 import 'package:notable/view_model/utils/styles/font_weight_helper.dart';
 import 'package:notable/view_model/utils/styles/text_style.dart';
 
-part '../../../components/auth/build_header.dart';
-part '../../../components/auth/create_account_link.dart';
-part '../../../components/auth/form.dart';
-part '../../../components/auth/social_login_buttons.dart';
-part '../../../components/auth/submit_button.dart';
+part '../../../components/auth/login/build_header.dart';
+part '../../../components/auth/login/create_account_link.dart';
+part '../../../components/auth/login/form.dart';
+part '../../../components/auth/login/social_login_buttons.dart';
+part '../../../components/auth/login/submit_button.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    AuthCubit.get(context).clearControllers();
     return Scaffold(
       body: SafeArea(
         child: Center(

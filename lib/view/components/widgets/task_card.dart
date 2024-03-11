@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:notable/model/task/task.dart';
@@ -11,64 +10,74 @@ class TaskCard extends StatelessWidget {
   const TaskCard({
     super.key,
     required this.task,
+    this.onTap,
   });
 
   final Tasks task;
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 11,
-        vertical: 20,
-      ),
-      decoration: BoxDecoration(
-        color: AppColors.primaryColor,
-        borderRadius: BorderRadius.circular(10.r),
-      ),
-      width: double.infinity,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "${task.title}",
-                style: TextStyles.font14Regular.copyWith(
-                  fontWeight: FontWeightHelper.bold,
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 11,
+          vertical: 20,
+        ),
+        decoration: BoxDecoration(
+          color: AppColors.primaryColor,
+          borderRadius: BorderRadius.circular(10.r),
+        ),
+        width: double.infinity,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Text(
+                    "${task.title}",
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                    style: TextStyles.font14Regular.copyWith(
+                      fontWeight: FontWeightHelper.bold,
+                    ),
+                  ),
                 ),
-              ),
-              Text(
-                "${task.startDate}",
-                style: TextStyles.font8Regular.copyWith(
-                  fontWeight: FontWeightHelper.light,
-                  color: AppColors.whiteColor,
+                horizontalSpacing(10),
+                Text(
+                  "${task.startDate}",
+                  style: TextStyles.font8Regular.copyWith(
+                    fontWeight: FontWeightHelper.light,
+                    color: AppColors.whiteColor,
+                  ),
                 ),
+              ],
+            ),
+            verticalSpacing(10),
+            Visibility(
+              visible: task.image != null,
+              replacement: const SizedBox.shrink(),
+              child: Image.network(
+                "${task.image}",
+                height: 80.h,
+                width: double.infinity,
+                fit: BoxFit.contain,
               ),
-            ],
-          ),
-          verticalSpacing(10),
-          Visibility(
-            visible: task.image != null,
-            replacement: const SizedBox.shrink(),
-            child: Image.network(
-              "${task.image}",
-              height: 80.h,
-              width: double.infinity,
-              fit: BoxFit.contain,
             ),
-          ),
-          verticalSpacing(4),
-          Text(
-            "${task.description}",
-            overflow: TextOverflow.ellipsis,
-            maxLines: 3,
-            style: TextStyles.font12Regular.copyWith(
-              fontWeight: FontWeightHelper.light,
+            verticalSpacing(4),
+            Text(
+              "${task.description}",
+              overflow: TextOverflow.ellipsis,
+              maxLines: 3,
+              style: TextStyles.font12Regular.copyWith(
+                fontWeight: FontWeightHelper.light,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

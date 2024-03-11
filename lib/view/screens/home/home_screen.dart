@@ -1,14 +1,17 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:notable/view/components/widgets/build_circular_indicator.dart';
 import 'package:notable/view/components/widgets/task_card.dart';
+import 'package:notable/view/screens/edit_and_delete_task/edit_and_delete_task_screen.dart';
 import 'package:notable/view_model/bloc/task/tasks_cubit.dart';
 import 'package:notable/view_model/data/local/shared_keys.dart';
 import 'package:notable/view_model/data/local/shared_preferences.dart';
 import 'package:notable/view_model/utils/colors/app_colors.dart';
 import 'package:notable/view_model/utils/functions/functions.dart';
 import 'package:notable/view_model/utils/images/images.dart';
+import 'package:notable/view_model/utils/navigation/navigation.dart';
 import 'package:notable/view_model/utils/styles/font_weight_helper.dart';
 import 'package:notable/view_model/utils/styles/text_style.dart';
 
@@ -23,7 +26,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final taskCubit = TasksCubit.get(context);
-    // Provide taskCubit to children and build UI
+    log("home screen build");
     return BlocProvider.value(
       value: taskCubit..getAllTasks(),
       child: Scaffold(
@@ -50,21 +53,29 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
                 verticalSpacing(20),
-                // Tasks list with loading and empty states
                 BlocBuilder<TasksCubit, TasksState>(
                   builder: (context, state) {
-                    return Visibility(
-                      visible:
-                          taskCubit.taskModel.data?.tasks?.isNotEmpty ?? false,
-                      replacement: const _BuildEmptyTasks(),
-                      child: Visibility(
-                        visible: state is! TasksLoading,
-                        replacement: const BuildCircularIndicator(),
-                        child: _BuildTasksList(taskCubit: taskCubit),
-                      ),
-                    );
+                    return _BuildTasksList(taskCubit: taskCubit);
                   },
                 ),
+                // Tasks list with loading and empty states
+                /*BlocBuilder<TasksCubit, TasksState>(
+                builder: (context, state) {
+                  return Visibility(
+                    child: _BuildTasksList(taskCubit: taskCubit),
+                  );
+
+                  */ /*Visibility(
+                visible: taskCubit.taskModel.data?.tasks?.isNotEmpty ?? false,
+                replacement: const _BuildEmptyTasks(),
+                child: Visibility(
+                  visible: state is! TasksLoading,
+                  replacement: const BuildCircularIndicator(),
+                  child: _BuildTasksList(taskCubit: taskCubit),
+                ),
+              );*/ /*
+                },
+              ),*/
               ],
             ),
           ),

@@ -16,3 +16,11 @@ class AuthErrorState extends AuthState {
 
   AuthErrorState(this.error);
 }
+
+class ValidateState extends AuthState {}
+
+class ChangeAutoValidateModeState extends AuthState {}
+
+class ChangeIsCheckedState extends AuthState {}
+
+class ShowErrorMessageState extends AuthState {}
