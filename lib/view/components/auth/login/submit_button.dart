@@ -29,7 +29,7 @@ class _SubmitButton extends StatelessWidget {
         } else if (state is AuthErrorState) {
           showSnackBar(
             context,
-            state.error,
+            state.error.name,
             AppColors.errorColor,
           );
         }

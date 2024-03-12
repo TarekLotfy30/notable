@@ -5,7 +5,7 @@ class _CreateAccountLink extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Provide an option for users who don't have an account yets
+    // Provide an option for users who don't have an account yet
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [

@@ -29,10 +29,11 @@ class _BuildForm extends StatelessWidget {
             textInputAction: TextInputAction.next,
             autoValidateMode: AutovalidateMode.onUserInteraction,
             validate: (value) {
-              if (value.isEmpty || value == null) {
-                return "The email field is required.";
-              } else if (!AppRegex.isEmailValid(value)) {
-                return "The email is not valid.";
+              if (value.isEmpty) {
+                return 'Email field is required.';
+              }
+              if (!AppRegex.isEmailValid(value)) {
+                return 'Invalid email format.';
               }
               return null;
             },
@@ -62,10 +63,11 @@ class _BuildForm extends StatelessWidget {
                 keyboardType: TextInputType.visiblePassword,
                 textInputAction: TextInputAction.done,
                 validate: (value) {
-                  if (value!.isEmpty || value == null) {
-                    return "The password field is required.";
-                  } else if (!AppRegex.isPasswordValid(value)) {
-                    return "The password is not valid.";
+                  if (value.isEmpty) {
+                    return 'Password field is required.';
+                  }
+                  if (!AppRegex.isPasswordValid(value)) {
+                    return 'The password is not valid';
                   }
                   return null;
                 },

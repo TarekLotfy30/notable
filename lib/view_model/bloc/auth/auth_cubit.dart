@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
@@ -10,6 +11,22 @@ import 'package:notable/view_model/data/remote/endpoints.dart';
 import 'package:notable/view_model/utils/helpers/app_regex.dart';
 
 part 'auth_state.dart';
+
+/*
+An AuthError enum is introduced to categorize different error types.
+The handleDioError method parses the DioException response and maps
+it to appropriate AuthError types (e.g., emailAlreadyExists, unauthenticated).
+In login and register, the catchError block emits AuthErrorState with the
+mapped error type.
+*/
+
+enum AuthError {
+  unexpected,
+  invalidEmail,
+  invalidPassword,
+  emailAlreadyExists,
+  unauthenticated,
+}
 
 class AuthCubit extends Cubit<AuthState> {
   AuthCubit() : super(AuthInitial());
@@ -25,10 +42,11 @@ class AuthCubit extends Cubit<AuthState> {
   bool hasNumber = false;
   bool hasMinLength = false;
   bool hasMaxLength = false;
-  TextEditingController? emailController = TextEditingController();
-  TextEditingController? passwordController = TextEditingController();
-  TextEditingController? nameController = TextEditingController();
-  TextEditingController? confirmPasswordController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
   var loginFormKey = GlobalKey<FormState>();
   var registerFormKey = GlobalKey<FormState>();
 
@@ -68,19 +86,34 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   void clearControllers() {
-    emailController!.clear();
-    passwordController!.clear();
-    nameController!.clear();
-    confirmPasswordController!.clear();
+    emailController.clear();
+    passwordController.clear();
+    nameController.clear();
+    confirmPasswordController.clear();
+  }
+
+  AuthError handleDioError(DioException error) {
+    if (error.response?.statusCode == 422) {
+      final errorData = error.response?.data;
+      if (errorData?["errors"]?["email"]?.isNotEmpty == true) {
+        return AuthError.invalidEmail;
+      }
+    } else if (error.response?.statusCode == 401) {
+      return AuthError.unauthenticated;
+    }
+    return AuthError.unexpected;
   }
 
   Future<void> login() async {
+    final email = emailController.text;
+    final password = utf8.encode(passwordController.text); // Hash
+
     emit(AuthLoadingState());
     await DioHelper.postData(
       endPoint: EndPoints.login,
       body: {
-        'email': emailController!.text,
-        'password': passwordController!.text
+        'email': email,
+        'password': base64Encode(password),
       },
     ).then((value) {
       //If the server responds with a status code of 200 or 201
@@ -93,31 +126,30 @@ class AuthCubit extends Cubit<AuthState> {
       //If there’s an error (for example, if the server is down or the user’s
       // internet connection is lost),
       // Handle Dio errors or network-related issues
-      log(onError.toString());
-      log(onError.response!.statusCode.toString());
+
       if (onError is DioException) {
-        if (onError.response?.statusCode == 422) {
-          emit(AuthErrorState(onError.response?.data["errors"]["email"][0]));
-        } else if (onError.response?.statusCode == 401) {
-          emit(AuthErrorState(onError.response?.data["message"]));
-        } else {
-          emit(AuthErrorState("An unexpected error occurred."));
-        }
+        final error = handleDioError(onError);
+        emit(AuthErrorState(error));
       } else {
-        emit(AuthErrorState("An unexpected error occurred."));
+        emit(AuthErrorState(AuthError.unexpected)); // Close unexpected error state
       }
     });
   }
 
   Future<void> register() async {
+    final name = nameController.text;
+    final email = emailController.text;
+    final password = utf8.encode(passwordController.text); // Hash password
+    final confirmPassword = utf8.encode(confirmPasswordController.text); // Hash confirm password
+
     emit(AuthLoadingState());
     await DioHelper.postData(
       endPoint: EndPoints.register,
       body: {
-        "name": nameController!.text,
-        'email': emailController!.text,
-        'password': passwordController!.text,
-        'password_confirmation': confirmPasswordController!.text
+        "name": name,
+        'email': email,
+        'password': base64Encode(password),
+        'password_confirmation': base64Encode(confirmPassword),
       },
     ).then((value) {
       //If the server responds with a status code of 200 or 201
@@ -131,16 +163,11 @@ class AuthCubit extends Cubit<AuthState> {
       // internet connection is lost),
       log(onError.toString());
       if (onError is DioException) {
-        if (onError.response?.statusCode == 422) {
-          emit(AuthErrorState(onError.response?.data["errors"]["email"][0]));
-        } else if (onError.response?.statusCode == 401) {
-          emit(AuthErrorState(onError.response?.data["message"]));
-        } else {
-          emit(AuthErrorState("An unexpected error occurred."));
-        }
+        final error = handleDioError(onError);
+        emit(AuthErrorState(error));
       } else {
-        emit(AuthErrorState("An unexpected error occurred."));
+        emit(AuthErrorState(AuthError.unexpected));
       }
-    });
+
   }
 }

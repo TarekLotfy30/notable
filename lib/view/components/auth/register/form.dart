@@ -52,11 +52,11 @@ class _BuildForm extends StatelessWidget {
           ),
           AppTextFormField(
             validate: (value) {
-              if (value.isEmpty || value == null) {
-                return "The email field is required.";
+              if (value.isEmpty) {
+                return 'Email field is required.';
               }
               if (!AppRegex.isEmailValid(value)) {
-                return "Please enter a valid email address.";
+                return 'Invalid email format.';
               }
               return null;
             },
@@ -89,7 +89,7 @@ class _BuildForm extends StatelessWidget {
                 keyboardType: TextInputType.visiblePassword,
                 textInputAction: TextInputAction.done,
                 validate: (value) {
-                  if (value.isEmpty || value == null) {
+                  if (value.isEmpty) {
                     return "The password field is required.";
                   }
                   if (cubit.hasLowerCase == false) {
@@ -155,10 +155,10 @@ class _BuildForm extends StatelessWidget {
                 textInputAction: TextInputAction.done,
                 validate: (value) {
                   if (value.isEmpty) {
-                    return "The Confirm Password field is required.";
+                    return 'Confirm Password field is required.';
                   }
-                  if (value != cubit.passwordController?.text) {
-                    return "The Password  Field Confirmation doesn't match.";
+                  if (cubit.passwordController.text != value) {
+                    return 'Passwords do not match.';
                   }
                   return null;
                 },
