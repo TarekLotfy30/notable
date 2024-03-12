@@ -131,7 +131,8 @@ class AuthCubit extends Cubit<AuthState> {
         final error = handleDioError(onError);
         emit(AuthErrorState(error));
       } else {
-        emit(AuthErrorState(AuthError.unexpected)); // Close unexpected error state
+        emit(AuthErrorState(
+            AuthError.unexpected)); // Close unexpected error state
       }
     });
   }
@@ -140,7 +141,8 @@ class AuthCubit extends Cubit<AuthState> {
     final name = nameController.text;
     final email = emailController.text;
     final password = utf8.encode(passwordController.text); // Hash password
-    final confirmPassword = utf8.encode(confirmPasswordController.text); // Hash confirm password
+    final confirmPassword =
+        utf8.encode(confirmPasswordController.text); // Hash confirm password
 
     emit(AuthLoadingState());
     await DioHelper.postData(
@@ -168,6 +170,6 @@ class AuthCubit extends Cubit<AuthState> {
       } else {
         emit(AuthErrorState(AuthError.unexpected));
       }
-
+    });
   }
 }
