@@ -1,8 +1,7 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:notable/view/components/widgets/build_circular_indicator.dart';
 import 'package:notable/view/components/widgets/task_card.dart';
 import 'package:notable/view/screens/edit_and_delete_task/edit_and_delete_task_screen.dart';
 import 'package:notable/view_model/bloc/task/tasks_cubit.dart';
@@ -26,7 +25,6 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final taskCubit = TasksCubit.get(context);
-    log("home screen build");
     return BlocProvider.value(
       value: taskCubit..getAllTasks(),
       child: Scaffold(
@@ -53,29 +51,20 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
                 verticalSpacing(20),
-                BlocBuilder<TasksCubit, TasksState>(
-                  builder: (context, state) {
-                    return _BuildTasksList(taskCubit: taskCubit);
-                  },
-                ),
                 // Tasks list with loading and empty states
-                /*BlocBuilder<TasksCubit, TasksState>(
-                builder: (context, state) {
-                  return Visibility(
-                    child: _BuildTasksList(taskCubit: taskCubit),
-                  );
-
-                  */ /*Visibility(
-                visible: taskCubit.taskModel.data?.tasks?.isNotEmpty ?? false,
-                replacement: const _BuildEmptyTasks(),
-                child: Visibility(
-                  visible: state is! TasksLoading,
-                  replacement: const BuildCircularIndicator(),
-                  child: _BuildTasksList(taskCubit: taskCubit),
+                BlocBuilder<TasksCubit, TasksState>(
+                  builder: (context, state) => Visibility(
+                    visible:
+                        taskCubit.taskModel.data?.tasks?.isNotEmpty ?? false,
+                    replacement: const _BuildEmptyTasks(),
+                    child: Visibility(
+                      visible: state is! TasksLoadingState,
+                      //todo: add shimmer
+                      replacement: const BuildCircularIndicator(),
+                      child: _BuildTasksList(taskCubit: taskCubit),
+                    ),
+                  ),
                 ),
-              );*/ /*
-                },
-              ),*/
               ],
             ),
           ),

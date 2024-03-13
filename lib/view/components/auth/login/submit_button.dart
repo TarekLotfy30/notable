@@ -26,6 +26,7 @@ class _SubmitButton extends StatelessWidget {
               const SharedHome(),
             ),
           );
+          SharedHomeCubit.get(context).controller.index = 0;
         } else if (state is AuthErrorState) {
           showSnackBar(
             context,
@@ -39,6 +40,7 @@ class _SubmitButton extends StatelessWidget {
           visible: state is! AuthLoadingState,
           replacement: const BuildCircularIndicator(),
           child: AppButton(
+            sideBorder: BorderSide.none,
             onPressed: () async {
               // Validate and submit login form
               // if validation passes

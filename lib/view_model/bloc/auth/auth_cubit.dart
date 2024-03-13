@@ -60,6 +60,13 @@ class AuthCubit extends Cubit<AuthState> {
         key: AppSharedKeys.name, value: value?["data"]["user"]["name"]);
   }
 
+  void deleteData() {
+    LocalData.remove(key: AppSharedKeys.token);
+    LocalData.remove(key: AppSharedKeys.userId);
+    LocalData.remove(key: AppSharedKeys.email);
+    LocalData.remove(key: AppSharedKeys.name);
+  }
+
   void changeIsObscure() {
     isObscure = !isObscure;
     emit(ChangeIsObscureState());
@@ -118,6 +125,7 @@ class AuthCubit extends Cubit<AuthState> {
     ).then((value) {
       //If the server responds with a status code of 200 or 201
       //(which usually means that the request was successful),
+
       if (value?.statusCode == 200 || value?.statusCode == 201) {
         saveData(value?.data);
         emit(AuthSuccessState());
@@ -126,7 +134,6 @@ class AuthCubit extends Cubit<AuthState> {
       //If there’s an error (for example, if the server is down or the user’s
       // internet connection is lost),
       // Handle Dio errors or network-related issues
-
       if (onError is DioException) {
         final error = handleDioError(onError);
         emit(AuthErrorState(error));
@@ -141,8 +148,7 @@ class AuthCubit extends Cubit<AuthState> {
     final name = nameController.text;
     final email = emailController.text;
     final password = utf8.encode(passwordController.text); // Hash password
-    final confirmPassword =
-        utf8.encode(confirmPasswordController.text); // Hash confirm password
+    final confirmPassword = utf8.encode(confirmPasswordController.text);
 
     emit(AuthLoadingState());
     await DioHelper.postData(
@@ -169,6 +175,33 @@ class AuthCubit extends Cubit<AuthState> {
         emit(AuthErrorState(error));
       } else {
         emit(AuthErrorState(AuthError.unexpected));
+      }
+    });
+  }
+
+  Future<void> signOut() async {
+    emit(AuthLoadingState());
+    await DioHelper.postData(
+      endPoint: EndPoints.logout,
+      token: LocalData.get(key: AppSharedKeys.token),
+    ).then((value) {
+      //If the server responds with a status code of 200 or 201
+      //(which usually means that the request was successful),
+      if (value?.statusCode == 200 || value?.statusCode == 201) {
+        deleteData();
+        emit(AuthSuccessState());
+      }
+    }).catchError((onError) {
+      //If there’s an error (for example, if the server is down or the user’s
+      // internet connection is lost),
+      // Handle Dio errors or network-related issues
+      log(onError.toString());
+      if (onError is DioException) {
+        final error = handleDioError(onError);
+        emit(AuthErrorState(error));
+      } else {
+        emit(AuthErrorState(
+            AuthError.unexpected)); // Close unexpected error state
       }
     });
   }

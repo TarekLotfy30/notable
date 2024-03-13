@@ -129,7 +129,7 @@ class SharedHomeCubit extends Cubit<SharedHomeState> {
           ),
           activeColorPrimary: AppColors.primaryColor,
           inactiveColorPrimary: AppColors.darkGrayColor,
-          title: 'Home',
+          title: 'Settings',
           textStyle: TextStyles.font10Regular,
         ),
       ];

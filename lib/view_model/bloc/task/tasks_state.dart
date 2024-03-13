@@ -4,36 +4,36 @@ abstract class TasksState {}
 
 class TasksInitial extends TasksState {}
 
-class TasksLoading extends TasksState {}
-
-class TasksLoaded extends TasksState {}
-
-class TasksError extends TasksState {
-  final String error;
-
-  TasksError(this.error);
-}
-
 class SelectTheCategoryState extends TasksState {}
 
-class SendTaskLoading extends TasksState {}
+class TasksLoadingState extends TasksState {}
 
-class SendTaskLoaded extends TasksState {}
+class TaskLoadedSuccessfullyState extends TasksState {}
 
-class SendTaskError extends TasksState {
+class TasksErrorState extends TasksState {
   final String error;
 
-  SendTaskError(this.error);
+  TasksErrorState(this.error);
 }
 
-class ShowSingleTaskLoading extends TasksState {}
+class SendTaskLoadingState extends TasksState {}
 
-class ShowSingleTaskLoaded extends TasksState {}
+class SendTaskLoadedSuccessfullyState extends TasksState {}
 
-class ShowSingleTaskError extends TasksState {
+class SendTaskErrorState extends TasksState {
   final String error;
 
-  ShowSingleTaskError(this.error);
+  SendTaskErrorState(this.error);
+}
+
+class ShowSingleTaskLoadingState extends TasksState {}
+
+class ShowSingleTaskLoadedSuccessfullyState extends TasksState {}
+
+class ShowSingleTaskErrorState extends TasksState {
+  final String error;
+
+  ShowSingleTaskErrorState(this.error);
 }
 
 class DeleteTaskLoading extends TasksState {}

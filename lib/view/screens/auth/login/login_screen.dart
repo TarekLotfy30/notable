@@ -8,6 +8,7 @@ import 'package:notable/view/components/widgets/social_button.dart';
 import 'package:notable/view/screens/auth/register/register_screen.dart';
 import 'package:notable/view/screens/shared_home/shared_home.dart';
 import 'package:notable/view_model/bloc/auth/auth_cubit.dart';
+import 'package:notable/view_model/bloc/shared_home/shared_home_cubit.dart';
 import 'package:notable/view_model/utils/colors/app_colors.dart';
 import 'package:notable/view_model/utils/functions/functions.dart';
 import 'package:notable/view_model/utils/helpers/app_regex.dart';
@@ -24,6 +25,20 @@ part '../../../components/auth/login/submit_button.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => AuthCubit(),
+      child: const LoginScreenContent(),
+    );
+  }
+}
+
+class LoginScreenContent extends StatelessWidget {
+  const LoginScreenContent({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

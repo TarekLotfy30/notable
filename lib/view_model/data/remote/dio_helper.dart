@@ -36,7 +36,7 @@ class DioHelper {
 
   static Future<Response?> postData({
     required String endPoint,
-    required Map<String, dynamic>? body,
+    Map<String, dynamic>? body,
     Map<String, dynamic>? params,
     Map<String, dynamic>? headers,
     String? token,

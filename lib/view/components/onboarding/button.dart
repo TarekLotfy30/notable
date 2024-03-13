@@ -12,6 +12,7 @@ class _Button extends StatelessWidget {
     return BlocBuilder<OnboardingCubit, OnboardingState>(
       builder: (context, state) {
         return AppButton(
+          sideBorder: BorderSide.none,
           buttonText: cubit.currentIndex == cubit.onboardingList.length - 1
               ? "Get Started"
               : "Next",

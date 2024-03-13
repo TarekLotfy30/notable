@@ -36,6 +36,7 @@ class _SubmitButton extends StatelessWidget {
           visible: state is! AuthLoadingState,
           replacement: const BuildCircularIndicator(),
           child: AppButton(
+            sideBorder: BorderSide.none,
             onPressed: () async {
               // Validate and submit login form
               // if validation passes

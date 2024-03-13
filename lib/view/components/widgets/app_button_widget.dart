@@ -14,6 +14,8 @@ class AppButton extends StatelessWidget {
   final double? borderRadius;
   final String buttonText;
   final TextStyle? textStyle;
+  final Widget? child;
+  final BorderSide sideBorder;
 
   const AppButton({
     super.key,
@@ -26,6 +28,8 @@ class AppButton extends StatelessWidget {
     this.borderRadius,
     required this.buttonText,
     this.textStyle,
+    this.child,
+    required this.sideBorder,
   });
 
   @override
@@ -45,16 +49,18 @@ class AppButton extends StatelessWidget {
         ),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(borderRadius ?? 16),
+          side: sideBorder,
         ),
       ),
-      child: Text(
-        buttonText,
-        style: textStyle ??
-            TextStyles.font16Regular.copyWith(
-              color: AppColors.lightPrimaryColor,
-              fontWeight: FontWeightHelper.medium,
-            ),
-      ),
+      child: child ??
+          Text(
+            buttonText,
+            style: textStyle ??
+                TextStyles.font16Regular.copyWith(
+                  color: AppColors.lightPrimaryColor,
+                  fontWeight: FontWeightHelper.medium,
+                ),
+          ),
     );
   }
 }

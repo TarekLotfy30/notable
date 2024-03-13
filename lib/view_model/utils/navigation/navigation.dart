@@ -30,6 +30,7 @@ class Navigation {
   /// ```dart
   /// NavigationUtils.pushAndRemove(context, LoginScreen());
   /// ```
+
   static void pushAndRemove(BuildContext context, Widget screen) {
     Navigator.pushAndRemoveUntil(
       context,
@@ -77,6 +78,18 @@ class Navigation {
       pageTransitionAnimation: PageTransitionAnimation.cupertino,
     );
   }
+
+  static void navigateToLoginScreen(BuildContext context, Widget screen) {
+    Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
+      MaterialPageRoute(
+        builder: (BuildContext context) {
+          return screen;
+        },
+      ),
+      (_) => false,
+    );
+  }
+
 /*
 ElevatedButton(
   onPressed: () => navigateToMainScreen(context),

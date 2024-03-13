@@ -19,16 +19,16 @@ class TasksCubit extends Cubit<TasksState> {
   TaskModel taskModel = TaskModel();
 
   Future<void> getAllTasks() async {
-    emit(TasksLoading());
+    emit(TasksLoadingState());
     DioHelper.getData(
       endPoint: EndPoints.tasks,
       token: LocalData.get(key: AppSharedKeys.token),
     ).then((value) {
       taskModel = TaskModel.fromJson(value?.data);
-      emit(TasksLoaded());
+      emit(TaskLoadedSuccessfullyState());
     }).catchError((onError) {
       print(onError.toString());
-      emit(TasksError(onError.toString()));
+      emit(TasksErrorState(onError.toString()));
     });
   }
 
@@ -112,7 +112,7 @@ class TasksCubit extends Cubit<TasksState> {
   TextEditingController? lastDateController = TextEditingController();
 
   Future<void> sendTask() async {
-    emit(SendTaskLoading());
+    emit(SendTaskLoadingState());
     DioHelper.postData(
       endPoint: EndPoints.tasks,
       token: LocalData.get(key: AppSharedKeys.token),
@@ -125,10 +125,10 @@ class TasksCubit extends Cubit<TasksState> {
       },
     ).then((value) {
       taskModel.data?.tasks?.add(Tasks.fromJson(value?.data["data"]));
-      emit(SendTaskLoaded());
+      emit(SendTaskLoadedSuccessfullyState());
     }).catchError((onError) {
       print(onError.toString());
-      emit(SendTaskError(onError.toString()));
+      emit(SendTaskErrorState(onError.toString()));
     });
   }
 
@@ -140,7 +140,7 @@ class TasksCubit extends Cubit<TasksState> {
   }
 
   Future<void> showSingleTask(int index) async {
-    emit(ShowSingleTaskLoading());
+    emit(ShowSingleTaskLoadingState());
     DioHelper.getData(
       endPoint: "${EndPoints.tasks}/${taskModel.data?.tasks?[index].id}",
       token: LocalData.get(key: AppSharedKeys.token),
@@ -151,10 +151,10 @@ class TasksCubit extends Cubit<TasksState> {
           taskModel.data?.tasks?[index].description ?? "";
       firstDateController?.text = taskModel.data?.tasks?[index].startDate ?? "";
       lastDateController?.text = taskModel.data?.tasks?[index].endDate ?? "";
-      emit(ShowSingleTaskLoaded());
+      emit(ShowSingleTaskLoadedSuccessfullyState());
     }).catchError((onError) {
       print(onError.toString());
-      emit(ShowSingleTaskError(onError.toString()));
+      emit(ShowSingleTaskErrorState(onError.toString()));
     });
   }
 

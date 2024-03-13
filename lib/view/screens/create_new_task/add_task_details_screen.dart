@@ -36,7 +36,7 @@ class TaskDetailsScreen extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: BlocListener<TasksCubit, TasksState>(
               listener: (context, state) {
-                if (state is SendTaskLoaded) {
+                if (state is SendTaskLoadedSuccessfullyState) {
                   cubit.reset();
                   Navigation.pop(context);
                   showSnackBar(
@@ -44,7 +44,7 @@ class TaskDetailsScreen extends StatelessWidget {
                     "Task Added Successfully",
                     AppColors.successColor,
                   );
-                } else if (state is SendTaskError) {
+                } else if (state is SendTaskErrorState) {
                   showSnackBar(
                     context,
                     state.error.toString(),

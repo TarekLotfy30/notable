@@ -19,7 +19,13 @@ class _CreateAccountLink extends StatelessWidget {
         // Navigate to RegisterScreen on button click
         TextButton(
           onPressed: () {
-            Navigation.pushAndRemove(context, const RegisterScreen());
+            Navigation.pushAndRemove(
+              context,
+              BlocProvider(
+                create: (BuildContext context) => AuthCubit(),
+                child: const RegisterScreen(),
+              ),
+            );
           },
           child: Text(
             "Create Now",
