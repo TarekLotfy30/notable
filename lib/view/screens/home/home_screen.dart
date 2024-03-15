@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:notable/view/components/widgets/build_circular_indicator.dart';
+import 'package:notable/model/task/task.dart';
+import 'package:notable/view/components/home_screen/greeting_section.dart';
+import 'package:notable/view/components/widgets/shimmer_widget.dart';
 import 'package:notable/view/components/widgets/task_card.dart';
 import 'package:notable/view/screens/edit_and_delete_task/edit_and_delete_task_screen.dart';
 import 'package:notable/view_model/bloc/task/tasks_cubit.dart';
-import 'package:notable/view_model/data/local/shared_keys.dart';
-import 'package:notable/view_model/data/local/shared_preferences.dart';
 import 'package:notable/view_model/utils/colors/app_colors.dart';
 import 'package:notable/view_model/utils/functions/functions.dart';
 import 'package:notable/view_model/utils/images/images.dart';
@@ -14,10 +14,8 @@ import 'package:notable/view_model/utils/navigation/navigation.dart';
 import 'package:notable/view_model/utils/styles/font_weight_helper.dart';
 import 'package:notable/view_model/utils/styles/text_style.dart';
 
-import '../../../model/task/task.dart';
-
-part "../../components/home_screen/build_empty_tasks.dart";
-part "../../components/home_screen/build_tasks_list.dart";
+part '../../components/home_screen/build_empty_tasks.dart';
+part '../../components/home_screen/build_tasks_list.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -34,36 +32,21 @@ class HomeScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Personal greeting
-                Text(
-                  "Hey! ${LocalData.get(key: AppSharedKeys.name)}",
-                  style: TextStyles.font14Regular.copyWith(
-                    fontWeight: FontWeightHelper.medium,
-                    color: AppColors.black,
-                  ),
-                ),
-                verticalSpacing(4),
-                Text(
-                  "Let’s start making notes",
-                  style: TextStyles.font12Regular.copyWith(
-                    fontWeight: FontWeightHelper.light,
-                    color: AppColors.black,
-                  ),
-                ),
+                const GreetingSection(),
                 verticalSpacing(20),
-                // Tasks list with loading and empty states
                 BlocBuilder<TasksCubit, TasksState>(
-                  builder: (context, state) => Visibility(
-                    visible:
-                        taskCubit.taskModel.data?.tasks?.isNotEmpty ?? false,
-                    replacement: const _BuildEmptyTasks(),
-                    child: Visibility(
-                      visible: state is! TasksLoadingState,
-                      //todo: add shimmer
-                      replacement: const BuildCircularIndicator(),
-                      child: _BuildTasksList(taskCubit: taskCubit),
-                    ),
-                  ),
+                  builder: (context, state) {
+                    final tasks = taskCubit.taskModel.data?.tasks;
+                    if (tasks == null || tasks.isEmpty) {
+                      return const _BuildEmptyTasks();
+                    } else {
+                      return Visibility(
+                        visible: state is! TasksLoadingState,
+                        replacement: const ShimmerWidget(),
+                        child: _BuildTasksList(taskCubit: taskCubit),
+                      );
+                    }
+                  },
                 ),
               ],
             ),

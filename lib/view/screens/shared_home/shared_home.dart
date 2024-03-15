@@ -12,8 +12,8 @@ class SharedHome extends StatelessWidget {
     final SharedHomeCubit cubit = SharedHomeCubit.get(context);
     return Scaffold(
       body: PersistentTabView(
-        controller: cubit.controller,
         context,
+        controller: cubit.controller,
         navBarHeight: 84.h,
         screens: cubit.buildScreens(),
         items: cubit.navBarsItems(),
@@ -22,7 +22,6 @@ class SharedHome extends StatelessWidget {
         popActionScreens: PopActionScreensType.all,
         // Navigation Bar's items animation properties.
         resizeToAvoidBottomInset: true,
-        bottomScreenMargin: 0.0,
         margin: EdgeInsets.zero,
         itemAnimationProperties: const ItemAnimationProperties(
           duration: Duration(milliseconds: 200),

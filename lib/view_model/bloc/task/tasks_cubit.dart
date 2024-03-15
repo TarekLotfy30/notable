@@ -20,16 +20,17 @@ class TasksCubit extends Cubit<TasksState> {
 
   Future<void> getAllTasks() async {
     emit(TasksLoadingState());
-    DioHelper.getData(
-      endPoint: EndPoints.tasks,
-      token: LocalData.get(key: AppSharedKeys.token),
-    ).then((value) {
-      taskModel = TaskModel.fromJson(value?.data);
-      emit(TaskLoadedSuccessfullyState());
-    }).catchError((onError) {
-      print(onError.toString());
-      emit(TasksErrorState(onError.toString()));
-    });
+    await Future.delayed(const Duration(seconds: 1))
+        .then((value) => DioHelper.getData(
+              endPoint: EndPoints.tasks,
+              token: LocalData.get(key: AppSharedKeys.token),
+            ).then((value) {
+              taskModel = TaskModel.fromJson(value?.data);
+              emit(TaskLoadedSuccessfullyState());
+            }).catchError((onError) {
+              print(onError.toString());
+              emit(TasksErrorState(onError.toString()));
+            }));
   }
 
   List<Category> categories = [

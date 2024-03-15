@@ -16,7 +16,6 @@ class NotableApp extends StatelessWidget {
       minTextAdapt: true,
       child: MultiBlocProvider(
         providers: [
-          //BlocProvider(create: (context) => AuthCubit()),
           BlocProvider(create: (context) => SharedHomeCubit()),
           BlocProvider(create: (context) => TasksCubit()),
         ],

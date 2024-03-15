@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:notable/view/components/widgets/app_text_form_field.dart';
+import 'package:notable/view_model/bloc/shared_home/shared_home_cubit.dart';
 import 'package:notable/view_model/bloc/task/tasks_cubit.dart';
 import 'package:notable/view_model/utils/colors/app_colors.dart';
 import 'package:notable/view_model/utils/functions/functions.dart';
@@ -39,6 +40,7 @@ class TaskDetailsScreen extends StatelessWidget {
                 if (state is SendTaskLoadedSuccessfullyState) {
                   cubit.reset();
                   Navigation.pop(context);
+                  SharedHomeCubit.get(context).controller.index = 0;
                   showSnackBar(
                     context,
                     "Task Added Successfully",
