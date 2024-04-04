@@ -38,9 +38,9 @@ class TaskDetailsScreen extends StatelessWidget {
             child: BlocListener<TasksCubit, TasksState>(
               listener: (context, state) {
                 if (state is SendTaskLoadedSuccessfullyState) {
-                  cubit.reset();
                   Navigation.pop(context);
-                  SharedHomeCubit.get(context).controller.index = 0;
+                  SharedHomeCubit.get(context).controller.jumpToTab(0);
+                  cubit.reset();
                   showSnackBar(
                     context,
                     "Task Added Successfully",
@@ -87,7 +87,7 @@ class TaskDetailsScreen extends StatelessWidget {
                     },
                     hintText: "Add Title",
                     keyboardType: TextInputType.multiline,
-                    controller: cubit.titleController,
+                    controller: cubit.initialTitleController,
                     textInputAction: TextInputAction.next,
                     enabledBorder: InputBorder.none,
                     focusedBorder: InputBorder.none,
@@ -106,7 +106,7 @@ class TaskDetailsScreen extends StatelessWidget {
                     },
                     hintText: "Type something...",
                     keyboardType: TextInputType.multiline,
-                    controller: cubit.descriptionController,
+                    controller: cubit.initialDescriptionController,
                     textInputAction: TextInputAction.done,
                     enabledBorder: InputBorder.none,
                     focusedBorder: InputBorder.none,
@@ -120,7 +120,7 @@ class TaskDetailsScreen extends StatelessWidget {
                     maxLines: null,
                   ),
                   AppTextFormField(
-                    controller: cubit.firstDateController,
+                    controller: cubit.initialFirstDateController,
                     keyboardType: TextInputType.none,
                     validate: (c) {
                       if (c == null || c.isEmpty) {
@@ -132,7 +132,7 @@ class TaskDetailsScreen extends StatelessWidget {
                     onTap: () {
                       datePicker(
                         context: context,
-                        textEditingController: cubit.firstDateController,
+                        textEditingController: cubit.initialFirstDateController,
                       );
                     },
                     hintText: "FirstDate",
@@ -143,7 +143,7 @@ class TaskDetailsScreen extends StatelessWidget {
                   ),
                   verticalSpacing(10),
                   AppTextFormField(
-                    controller: cubit.lastDateController,
+                    controller: cubit.initialLastDateController,
                     keyboardType: TextInputType.none,
                     validate: (c) {
                       if (c == null || c.isEmpty) {
@@ -155,7 +155,7 @@ class TaskDetailsScreen extends StatelessWidget {
                     onTap: () {
                       datePicker(
                         context: context,
-                        textEditingController: cubit.lastDateController,
+                        textEditingController: cubit.initialLastDateController,
                       );
                     },
                     hintText: "LastDate",

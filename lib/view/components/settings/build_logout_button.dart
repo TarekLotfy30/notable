@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:notable/view/components/widgets/dialogs.dart';
 import 'package:notable/view/screens/auth/login/login_screen.dart';
 import 'package:notable/view_model/bloc/auth/auth_cubit.dart';
 import 'package:notable/view_model/utils/colors/app_colors.dart';
@@ -40,7 +41,17 @@ class BuildLogoutButton extends StatelessWidget {
       builder: (context, state) {
         return InkWell(
           onTap: () {
-            AuthCubit.get(context).signOut();
+            showGenericDialog(
+              context,
+              pageBuilder: (ctx, anim1, anim2) => DialogOfTheApp(
+                title: "Log Out",
+                content: "Are You sure you want to log out from the "
+                    "application?",
+                onPressedYes: () {
+                  AuthCubit.get(context).signOut();
+                },
+              ),
+            );
           },
           child: Row(
             children: [

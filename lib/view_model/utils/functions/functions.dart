@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
@@ -102,16 +104,23 @@ String convertUIDateToAPIFormat(String uiDate) {
   return apiDate;
 }
 
-/*/// Shows a toast message with [msg] and returns a future that completes
-/// when the toast is hidden.
-Future<bool?> showToast({required String msg}) {
-  return Fluttertoast.showToast(
-    msg: msg,
-    toastLength: Toast.LENGTH_SHORT,
-    gravity: ToastGravity.BOTTOM,
-    timeInSecForIosWeb: 2,
-    backgroundColor: AppColors.primaryColor,
-    textColor: Colors.white,
-    fontSize: 16.0,
+Future<void> showGenericDialog(BuildContext context,
+    {required Widget Function(
+            BuildContext, Animation<double>, Animation<double>)
+        pageBuilder}) {
+  return showGeneralDialog(
+    context: context,
+    transitionDuration: const Duration(milliseconds: 500),
+    pageBuilder: (ctx, anim1, anim2) => pageBuilder(ctx, anim1, anim2),
+    transitionBuilder: (ctx, anim1, anim2, child) => BackdropFilter(
+      filter:
+          ImageFilter.blur(sigmaX: 3 * anim1.value, sigmaY: 3 * anim1.value),
+      child: FadeTransition(
+        opacity: anim1,
+        child: child,
+      ),
+    ),
+    barrierDismissible: false,
+    barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
   );
-}*/
+}

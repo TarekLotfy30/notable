@@ -205,4 +205,13 @@ class AuthCubit extends Cubit<AuthState> {
       }
     });
   }
+
+  @override
+  Future<void> close() async {
+    emailController.dispose();
+    passwordController.dispose();
+    nameController.dispose();
+    confirmPasswordController.dispose();
+    return super.close();
+  }
 }

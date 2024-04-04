@@ -26,7 +26,7 @@ class TaskCard extends StatelessWidget {
           vertical: 20,
         ),
         decoration: BoxDecoration(
-          color: AppColors.primaryColor,
+          color: task.sendColor,
           borderRadius: BorderRadius.circular(10.r),
         ),
         width: double.infinity,

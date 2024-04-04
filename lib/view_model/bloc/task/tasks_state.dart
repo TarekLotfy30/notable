@@ -55,3 +55,25 @@ class UpdateTaskError extends TasksState {
 
   UpdateTaskError(this.error);
 }
+
+class UpdateTaskWarning extends TasksState {}
+
+class MarkAsFinishedLoading extends TasksState {}
+
+class MarkAsFinishedLoaded extends TasksState {}
+
+class MarkAsFinishedError extends TasksState {
+  final String error;
+
+  MarkAsFinishedError(this.error);
+}
+
+class GetFinishedTasksLoading extends TasksState {}
+
+class GetFinishedTasksLoaded extends TasksState {}
+
+class GetFinishedTasksError extends TasksState {
+  final String error;
+
+  GetFinishedTasksError(this.error);
+}

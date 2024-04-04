@@ -13,23 +13,22 @@ import 'package:notable/view_model/utils/styles/text_style.dart';
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
 
-  void _navigateToNextScreen(BuildContext context) {
+  Future<Widget> _getNextScreen() async {
     final bool skipOnBoarding =
-        LocalData.get(key: AppSharedKeys.skipOnBoarding) == true;
-    final Widget nextScreen;
+        await LocalData.get(key: AppSharedKeys.skipOnBoarding) ?? false;
+    final String? token = await LocalData.get(key: AppSharedKeys.token);
     if (skipOnBoarding) {
-      if (LocalData.get(key: AppSharedKeys.token) == null) {
-        nextScreen = const LoginScreen();
+      if (token == null) {
+        return const LoginScreen();
       } else {
-        nextScreen = const SharedHome();
+        return const SharedHome();
       }
     } else {
-      nextScreen = BlocProvider(
+      return BlocProvider(
         create: (context) => OnboardingCubit(),
         child: const OnBoardingScreen(),
       );
     }
-    Navigation.pushAndRemove(context, nextScreen);
   }
 
   @override
@@ -50,7 +49,10 @@ class SplashScreen extends StatelessWidget {
           ],
           totalRepeatCount: 1,
           displayFullTextOnTap: true,
-          onFinished: () => _navigateToNextScreen(context),
+          onFinished: () async {
+            final nextScreen = await _getNextScreen();
+            Navigation.pushAndRemove(context, nextScreen);
+          },
         ),
       ),
     );

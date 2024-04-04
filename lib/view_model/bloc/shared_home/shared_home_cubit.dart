@@ -7,6 +7,7 @@ import 'package:notable/view/screens/finished/finished_screen.dart';
 import 'package:notable/view/screens/home/home_screen.dart';
 import 'package:notable/view/screens/search/search_screen.dart';
 import 'package:notable/view/screens/settings/settings_screen.dart';
+import 'package:notable/view_model/bloc/task/tasks_cubit.dart';
 import 'package:notable/view_model/utils/colors/app_colors.dart';
 import 'package:notable/view_model/utils/images/images.dart';
 import 'package:notable/view_model/utils/styles/text_style.dart';
@@ -71,6 +72,12 @@ class SharedHomeCubit extends Cubit<SharedHomeState> {
           inactiveColorPrimary: AppColors.darkGrayColor,
           title: 'Finished',
           textStyle: TextStyles.font10Regular,
+          onPressed: (context) {
+            // Add your onPressed code here!
+            print("iam in finshedScreen now");
+            controller.index = 1;
+            TasksCubit.get(context).getFinishedTasks();
+          },
         ),
         PersistentBottomNavBarItem(
           icon: CircleAvatar(

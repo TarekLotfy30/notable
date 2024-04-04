@@ -23,13 +23,7 @@ class Navigation {
   /// This method is ideal for starting a completely new flow within the app,
   /// preventing users from navigating back to previous screens.
   /// It's commonly used for login flows, onboarding processes, or isolated
-  /// tasks that shouldn't
-  /// be intermixed with the main navigation stack.
-  ///
-  /// **Example:**
-  /// ```dart
-  /// NavigationUtils.pushAndRemove(context, LoginScreen());
-  /// ```
+  /// tasks that shouldn't be intermixed with the main navigation stack.
 
   static void pushAndRemove(BuildContext context, Widget screen) {
     Navigator.pushAndRemoveUntil(
@@ -47,10 +41,6 @@ class Navigation {
   /// flow with the ability to go back one step but prevent returning to specific
   /// screens within the flow.
   ///
-  /// **Example:**
-  /// ```dart
-  /// Navigation.pushReplacement(context, SettingsScreen());
-  /// ```
   static void pushReplacement(BuildContext context, Widget screen) {
     Navigator.pushReplacement(
       context,
@@ -63,12 +53,13 @@ class Navigation {
   /// The [pop] method removes the current screen from the stack and reveals
   /// the previous screen. This is typically used to navigate back to the
   /// previous screen.
+
   static void pop(BuildContext context) {
     Navigator.pop(context);
   }
 
   static void navigateToWithoutNavBar(BuildContext context, Widget screen,
-      {bool? withNavBar = false}) {
+      {bool withNavBar = false}) {
     pushNewScreen(
       context,
       screen: screen,
@@ -89,6 +80,12 @@ class Navigation {
       (_) => false,
     );
   }
+
+/*
+  * pushWithoutNavBar(
+  context,
+  MaterialPageRoute(builder: (context) => ...)
+);*/
 
 /*
 ElevatedButton(

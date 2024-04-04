@@ -26,20 +26,3 @@ class Skeleton extends StatelessWidget {
     );
   }
 }
-
-/*
-
-
-2- هتعمل ال shimmer effect
-
-بعد بقي مت customize ال screen بتاعتك باستخدام
- الresuable skelton و circleSkelton هتراب كل الي عملتوا
-ب shimmer.fromColors وهتديها الbaseColor و ال
- highlightColor
- وهتضيف الي عملته بدل
-ال CircularProgressIndicator
- وعشان تستخدم الeffect هتحتاج
- تعمل install للpackage
-
-
-*/

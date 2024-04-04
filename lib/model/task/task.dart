@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class TaskModel {
   Data? data;
   String? message;
@@ -6,8 +8,9 @@ class TaskModel {
 
   TaskModel({this.data, this.message, this.error, this.status});
 
-  TaskModel.fromJson(Map<String, dynamic> json) {
-    data = json['data'] != null ? Data.fromJson(json['data']) : null;
+  TaskModel.fromJson(Map<String, dynamic> json, {required Color color}) {
+    data =
+        json['data'] != null ? Data.fromJson(json['data'], color: color) : null;
     message = json['message'];
     error = json['error'].cast<dynamic>();
     status = json['status'];
@@ -22,10 +25,10 @@ class Data {
 
   Data({this.tasks, this.meta, this.links, this.pages});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  Data.fromJson(Map<String, dynamic> json, {required Color color}) {
     if (json['tasks'] != null) {
       json['tasks'].forEach((v) {
-        tasks!.add(Tasks.fromJson(v));
+        tasks!.add(Tasks.fromJson(v, color: color));
       });
     }
     meta = json['meta'] != null ? Meta.fromJson(json['meta']) : null;
@@ -42,6 +45,7 @@ class Tasks {
   String? startDate;
   String? endDate;
   String? status;
+  Color? sendColor;
 
   Tasks(
       {this.id,
@@ -52,7 +56,7 @@ class Tasks {
       this.endDate,
       this.status});
 
-  Tasks.fromJson(Map<String, dynamic> json) {
+  Tasks.fromJson(Map<String, dynamic> json, {required Color color}) {
     id = json['id'];
     title = json['title'];
     description = json['description'];
@@ -60,6 +64,7 @@ class Tasks {
     startDate = json['start_date'];
     endDate = json['end_date'];
     status = json['status'];
+    sendColor = color;
   }
 }
 

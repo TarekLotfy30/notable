@@ -9,5 +9,7 @@ class EndPoints {
 
   static String get tasks => "tasks";
 
+  static String get filterTasks => "tasks-filter";
+
   static String get logout => "logout";
 }

@@ -50,4 +50,13 @@ class AppImages {
 
   static String get clipboardList =>
       "assets/icons/add_task_icons/clipboard_list.png";
+
+  //-----------------------------DIALOGS-----------------------------------
+  static String get deleteIcon => "assets/icons/dialogs_icons/delete_icon.png";
+
+  static String get editIcon => "assets/icons/dialogs_icons/info.png";
+
+  //------------------------------Finished Screen----------------------------
+  static String get finishedHeader =>
+      "assets/images/illustration/finished_header.png";
 }

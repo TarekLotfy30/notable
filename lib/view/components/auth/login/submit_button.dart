@@ -26,7 +26,7 @@ class _SubmitButton extends StatelessWidget {
               const SharedHome(),
             ),
           );
-          SharedHomeCubit.get(context).controller.index = 0;
+          SharedHomeCubit.get(context).controller.jumpToTab(0);
         } else if (state is AuthErrorState) {
           showSnackBar(
             context,
